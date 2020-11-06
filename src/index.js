@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import './index.css'
 import TodoList from './components/TodoList.jsx'
+import App from './App'
 
 function Index(props) {
   return <>
@@ -16,6 +17,6 @@ function Index(props) {
 }
 
 ReactDOM.render(
-  <Index />,
+  <App />,
   document.getElementById('root')
 );

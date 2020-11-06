@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { TOGGLE_COMPLETE } from "../store/action/types"
 
@@ -8,7 +8,15 @@ import { TOGGLE_COMPLETE } from "../store/action/types"
 export default function TodoList(props) {
     let state = useSelector((state) => state);
 
+    const inputEl = useRef('testRef');
+
     let dispatch = useDispatch(); // 取得派发方法
+
+    const onButtonClick = () => {
+        // `current` 指向已挂载到 DOM 上的文本输入元素
+        inputEl.current.focus();
+        console.log(inputEl);
+    };
 
 
     function renderList(todos) {
@@ -38,6 +46,8 @@ export default function TodoList(props) {
                     }
                 })}
                 <ChildrenNode />
+                <input ref={inputEl} type="text" />
+                <button onClick={onButtonClick}>Focus the input</button>
             </div>
 
         )
