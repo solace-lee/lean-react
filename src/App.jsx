@@ -1,17 +1,16 @@
 import React, { useRef, useState, useImperativeHandle, useEffect } from 'react'
 // 1. context 2. redux 3. bus 4. 回调  
-const Demo1 = ((props) => {
+const Demo1 = React.forwardRef((props, ref) => {
     const [count, setCount] = useState(0)
-    // const inputRef = useRef(null)
+    const inputRef = useRef(null)
 
-    // useImperativeHandle(
-    //     ref,
-    //     () => ({
-    //         input: inputRef.current,
-    //         count
-
-    //     }),
-    // )
+    useImperativeHandle(
+        ref,
+        () => ({
+            input: inputRef.current,
+            count
+        }),
+    )
 
     // useEffect(() => {
     //     props.func()
@@ -22,7 +21,7 @@ const Demo1 = ((props) => {
         <>
             <h2>demo1</h2>
             {count}
-            {/* <input type="text" ref={inputRef} /> */}
+            <input type="text" ref={inputRef} />
             <button onClick={e => {
                 setCount(prev => prev + 1)
             }}>click</button>
@@ -31,7 +30,7 @@ const Demo1 = ((props) => {
 })
 
 const App = () => {
-    // const demo1Ref = useRef(null)
+    const demo1Ref = useRef(null)
 
     function func() {
         console.log('run run ');
@@ -39,20 +38,16 @@ const App = () => {
 
     return (
         <>
-            <Demo1 ref={el => {
-                console.log(111, el);
-
-                func()
-            }} func={func} />
+            <Demo1 ref={demo1Ref} func={func} />
             <button onClick={e => {
                 // console.log(demo1Ref.current.input)
                 // demo1Ref.current.focus()
                 // window.input = demo1Ref.current.input
-                // demo1Ref.current.input.focus()
+                demo1Ref.current.input.focus()
             }}>clickAAA</button>
 
             <hr />
-            {/* {demo1Ref.current && demo1Ref.current.count} */}
+            {demo1Ref.current && demo1Ref.current.count}
         </>
     )
 }
